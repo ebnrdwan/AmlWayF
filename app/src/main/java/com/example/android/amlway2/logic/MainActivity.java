@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-
+//here you RE
     public void display(TextView textView) {
 
         Cursor mCursor = getContentResolver().query(ContractBill.billEntry.CONTENT_URI, null, null, null, null);
