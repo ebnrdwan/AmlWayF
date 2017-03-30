@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AmLWay</string>
+    <string name="content_authority">com.example.android.amlWay</string>
+</resources>
