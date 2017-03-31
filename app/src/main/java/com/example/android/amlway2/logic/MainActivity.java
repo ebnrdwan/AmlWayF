@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 if (toast!=null){
                     toast.cancel();
                 }
+                startActivity(new Intent(MainActivity.this,addingNewBill.class));
                 toast.makeText(MainActivity.this,"looooong press on item "+ id,Toast.LENGTH_SHORT).show();
                 return true;
             }
