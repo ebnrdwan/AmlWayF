@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.amlway2.R;
 import com.example.android.amlway2.adapters.adapterdata;
@@ -23,18 +24,57 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     TextView textView;
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int TASK_LOADER_ID = 0;
-
+    Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
+       toast = new Toast(MainActivity.this);
         recyclerView = (RecyclerView) findViewById(R.id.recMain);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+//        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+//            @Override
+//            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+//                // do it
+//                RecyclerView.ViewHolder holder ;
+//                int id = holder.itemView.getId();
+//                Toast.makeText(MainActivity.this,"you selected "+ id,Toast.LENGTH_SHORT).show();
+//            }
+//
+//
+//        });
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, int position, View v) {
+//                int  = viewHolder.itemView.getId();
+                Cursor mCursor = getContentResolver().query(ContractBill.billEntry.CONTENT_URI, null, null, null, null);
+                mCursor.moveToPosition(position);
+                int id = mCursor.getInt(mCursor.getColumnIndex(ContractBill.billEntry._ID));
 
+                if (toast!=null){
+                    toast.cancel();
+                }
+                toast.makeText(MainActivity.this,"you selected "+ id,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+                Cursor mCursor = getContentResolver().query(ContractBill.billEntry.CONTENT_URI, null, null, null, null);
+                mCursor.moveToPosition(position);
+                int id = mCursor.getInt(mCursor.getColumnIndex(ContractBill.billEntry._ID));
+
+                if (toast!=null){
+                    toast.cancel();
+                }
+                toast.makeText(MainActivity.this,"looooong press on item "+ id,Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
 
         FloatingActionButton actionButton = (FloatingActionButton) findViewById(R.id.mainAction);
         actionButton.setOnClickListener(new View.OnClickListener() {
