@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">AmLWay</string>
     <string name="content_authority">com.example.android.amlWay</string>
+    <plurals name="textplural">
+        <item quantity="few">22 %d times</item>
+
+    </plurals>
 </resources>
